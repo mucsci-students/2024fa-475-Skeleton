@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player Layer
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: World
+    uniqueID: 1184693965
+    locked: 0
+  - name: Collidables
+    uniqueID: 2028880419
+    locked: 0
+  - name: 'Playable '
+    uniqueID: 251179241
     locked: 0
