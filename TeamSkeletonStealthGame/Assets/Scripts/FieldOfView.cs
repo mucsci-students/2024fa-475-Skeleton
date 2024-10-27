@@ -102,7 +102,7 @@ public class FieldOfView : MonoBehaviour
         }
     }
 
-    void DrawFieldofView(){
+    public void DrawFieldofView(){
         int rayCount = Mathf.RoundToInt(viewAngle*meshResolution);
         float stepAngleSize = viewAngle/rayCount;
         List<Vector3> viewPoints = new List<Vector3>();

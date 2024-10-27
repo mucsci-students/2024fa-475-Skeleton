@@ -60,6 +60,7 @@ public class PlayerMoves : Player
 
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             ToggleStealth();
+        
     }
 
     private void HandleMovement()
@@ -72,8 +73,16 @@ public class PlayerMoves : Player
         bool isMoving = movementVector.magnitude > 0.01f;
         movement.SetBool("isMoving", isMoving);
 
-        if (isMoving && moveX != 0)
+        if (isMoving && moveX != 0) {
             transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f);
+            if (moveX > 0) {
+                this.GetComponent<FieldOfView>().fovRotation = 85f;
+                this.GetComponent<FieldOfView>().DrawFieldofView();
+            } else {
+                this.GetComponent<FieldOfView>().fovRotation = 265f;
+                this.GetComponent<FieldOfView>().DrawFieldofView();
+            }
+        }
     }
 
     private void Jumpkick()

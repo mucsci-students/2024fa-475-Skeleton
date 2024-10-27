@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     protected AudioSource audio_source;
     public AudioClip hit_sound; // player gets hit
     public AudioClip death_sound; // player death
+    public Vector3 respawnPoint;
 
 
 
@@ -36,9 +37,7 @@ public class Player : MonoBehaviour
         audio_source = GetComponent<AudioSource>();
         hit_sound = Resources.Load<AudioClip>("Playerhit");
         death_sound = Resources.Load<AudioClip>("Death");
-
-
-
+        respawnPoint = transform.position;
     }
 
     void Update()
@@ -108,6 +107,8 @@ public class Player : MonoBehaviour
         {
             Debug.Log("Player is being attacked");
             TakeDamage(10);
+        } else if (col.gameObject.CompareTag("Checkpoint")) {
+            respawnPoint = transform.position;
         }
     }
 }
