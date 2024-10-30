@@ -16,8 +16,8 @@ public class PatrollingEnemy : Enemy
     {
         currentStop = 0;
         base.Start();
-        startState = patrolState;
-        TransitionToState(startState);
+        StartState = PatrolState;
+        TransitionToState(StartState);
     }
 
     public void NextStop(){

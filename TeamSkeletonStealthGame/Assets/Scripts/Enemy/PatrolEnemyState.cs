@@ -6,16 +6,15 @@ public class PatrolEnemyState : EnemyState
 {
 
     float stopDuration;
-
-    // Start is called before the first frame update
+    
     public override void EnterState(Enemy enemy)
     {
-        enemy.agent.speed = enemy.speed;
-        enemy.renderFOV.material = enemy.fovMaterial;
+        enemy.Agent.speed = enemy.speed;
+        enemy.RenderFOV.material = enemy.fovMaterial;
 
         PatrollingEnemy patrollingEnemy = (PatrollingEnemy) enemy;
         stopDuration = patrollingEnemy.waitDuration;
-        enemy.agent.destination = patrollingEnemy.GetStopPosition().position;
+        enemy.Agent.destination = patrollingEnemy.GetStopPosition().position;
 
 
     }
@@ -28,7 +27,7 @@ public class PatrolEnemyState : EnemyState
             PatrollingEnemy patrollingEnemy = (PatrollingEnemy) enemy;
             stopDuration = patrollingEnemy.waitDuration; //reset timer
             patrollingEnemy.NextStop(); //move to next stop
-            enemy.agent.destination = patrollingEnemy.GetStopPosition().position; //update new destination
+            enemy.Agent.destination = patrollingEnemy.GetStopPosition().position; //update new destination
         }
         else stopDuration -= Time.deltaTime;
     }
