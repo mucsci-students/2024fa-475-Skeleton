@@ -6,16 +6,16 @@ public class PlayerMoves : Player
 {
     public float normalSpeed = 3.0f;
     public float stealthSpeed = 1.5f;
+    private FieldOfView FOV;
+    private bool isMoving;
 
     private void Start()
     {
         // Initialize Player components
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Animator>();
-
-        audio_source = GetComponent<AudioSource>();
+        FOV = GetComponent<FieldOfView>();
         onDeath += HandlePlayerDeath;
-        onHit += HandlePlayerHit;
     }
 
 
@@ -70,19 +70,21 @@ public class PlayerMoves : Player
 
         rb.velocity = movementVector;
 
-        bool isMoving = movementVector.magnitude > 0.01f;
+        isMoving = movementVector.magnitude > 0.01f;
         movement.SetBool("isMoving", isMoving);
 
-        if (isMoving && moveX != 0) {
-            transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f);
+        if (isMoving) 
+        {
             if (moveX > 0) {
-                this.GetComponent<FieldOfView>().fovRotation = 85f;
-                this.GetComponent<FieldOfView>().DrawFieldofView();
-            } else {
-                this.GetComponent<FieldOfView>().fovRotation = 265f;
-                this.GetComponent<FieldOfView>().DrawFieldofView();
+                transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f);
+
+            }else if(moveX < 0) {
+                transform.localScale = new Vector3(Mathf.Sign(moveX) * -0.8f, 0.8f, 0.8f);
             }
+                
         }
+        FOV.fovRotation = moveX > 0 ? 85f : 265f;
+        FOV.DrawFieldofView();
     }
 
     private void Jumpkick()

@@ -20,10 +20,6 @@ public class Player : MonoBehaviour
     protected bool isAlive = true;
     protected bool isStealth;
     public UnityAction onDeath;
-    public UnityAction onHit;
-    protected AudioSource audio_source;
-    public AudioClip hit_sound; // player gets hit
-    public AudioClip death_sound; // player death
     public Vector3 respawnPoint;
 
 
@@ -34,9 +30,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Animator>();
         moves = GetComponent<PlayerMoves>();
-        audio_source = GetComponent<AudioSource>();
-        hit_sound = Resources.Load<AudioClip>("Playerhit");
-        death_sound = Resources.Load<AudioClip>("Death");
         respawnPoint = transform.position;
     }
 
@@ -62,7 +55,6 @@ public class Player : MonoBehaviour
             hp -= damage;
             hitTimer = 0f;
             // Play hit sound
-            audio_source?.PlayOneShot(hit_sound);
 
             Vector2 knockbackDirection = (transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized;
             float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
@@ -70,8 +62,7 @@ public class Player : MonoBehaviour
 
             if (hp <= 0)
                 Die();
-            else
-                onHit?.Invoke();
+            
         }
     }
 
@@ -86,7 +77,6 @@ public class Player : MonoBehaviour
         Sprite current=GetComponent<SpriteRenderer>().sprite;
         current = Resources.Load<Sprite>("Dead");
         // Play death sound
-        audio_source?.PlayOneShot(death_sound);
 
         onDeath?.Invoke();
     }
