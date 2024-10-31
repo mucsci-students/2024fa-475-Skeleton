@@ -8,11 +8,13 @@ using UnityEngine.Events;
 [RequireComponent(typeof(AudioClip))]
 [RequireComponent(typeof(PlayerMoves))]
 
+
 public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
     protected Animator movement;
     protected PlayerMoves moves;
+    protected FieldOfView FOV;
     protected float moveX;
     protected float moveY;
     protected int hp;
