@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     protected Rigidbody2D rb;
     protected Animator movement;
     protected PlayerMoves moves;
+
+    protected SpriteRenderer render;
     protected float moveX;
     protected float moveY;
     protected int hp;

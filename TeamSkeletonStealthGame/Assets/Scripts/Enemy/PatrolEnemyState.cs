@@ -14,7 +14,7 @@ public class PatrolEnemyState : EnemyState
 
         PatrollingEnemy patrollingEnemy = (PatrollingEnemy) enemy;
         stopDuration = patrollingEnemy.waitDuration;
-        enemy.Agent.destination = patrollingEnemy.GetStopPosition().position;
+        //enemy.Agent.destination = patrollingEnemy.GetStopPosition().position;
 
 
     }
@@ -27,7 +27,7 @@ public class PatrolEnemyState : EnemyState
             PatrollingEnemy patrollingEnemy = (PatrollingEnemy) enemy;
             stopDuration = patrollingEnemy.waitDuration; //reset timer
             patrollingEnemy.NextStop(); //move to next stop
-            enemy.Agent.destination = patrollingEnemy.GetStopPosition().position; //update new destination
+           // enemy.Agent.destination = patrollingEnemy.GetStopPosition().position; //update new destination
         }
         else stopDuration -= Time.deltaTime;
     }

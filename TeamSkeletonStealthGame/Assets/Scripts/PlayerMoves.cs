@@ -13,6 +13,7 @@ public class PlayerMoves : Player
     {
         // Initialize Player components
         rb = GetComponent<Rigidbody2D>();
+        render = GetComponent<SpriteRenderer>();
         movement = GetComponent<Animator>();
         FOV = GetComponent<FieldOfView>();
         onDeath += HandlePlayerDeath;
@@ -75,17 +76,14 @@ public class PlayerMoves : Player
 
         if (isMoving) 
         {
-            if (moveX > 0) {
-                transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f);
-
-            }else if(moveX < 0) {
-                transform.localScale = new Vector3(Mathf.Sign(moveX) * -0.8f, 0.8f, 0.8f);
-            }
-                
+            transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f); // Set facing direction
+            render.flipX = moveX < 0;
         }
+
         FOV.fovRotation = moveX > 0 ? 85f : 265f;
         FOV.DrawFieldofView();
     }
+
 
     private void Jumpkick()
     {

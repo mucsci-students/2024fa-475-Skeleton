@@ -850,8 +850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb99b7c725780df49bdff4200af4313d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit_sound: {fileID: 0}
-  death_sound: {fileID: 0}
   respawnPoint: {x: 0, y: 0, z: 0}
   normalSpeed: 3
   stealthSpeed: 1.5
@@ -863,7 +861,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475005510}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -914,8 +912,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0062871724, y: -0.018861331}
-  m_Size: {x: 1.048439, y: 1.7222487}
+  m_Offset: {x: -0.020040385, y: -0.8121106}
+  m_Size: {x: 0.66229963, y: 0.7149542}
   m_Direction: 0
 --- !u!1 &519420028
 GameObject:
