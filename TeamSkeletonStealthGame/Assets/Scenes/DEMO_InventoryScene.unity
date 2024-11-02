@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 989753414}
   m_Layer: 9
   m_Name: Level_4_Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 1490987121}
   m_Layer: 9
   m_Name: Level_2_Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1183,6 +1183,7 @@ GameObject:
   - component: {fileID: 1597293244}
   - component: {fileID: 1597293243}
   - component: {fileID: 1597293242}
+  - component: {fileID: 1597293249}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1383,6 +1384,19 @@ Transform:
   - {fileID: 1681234989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1597293249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597293241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143c36c7beb49d542b4e8fa71b05abcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  respawnPoint: {x: 0, y: 0, z: 0}
 --- !u!1 &1607719205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,9 +1409,10 @@ GameObject:
   - component: {fileID: 1607719208}
   - component: {fileID: 1607719210}
   - component: {fileID: 1607719211}
+  - component: {fileID: 1607719212}
   m_Layer: 9
   m_Name: Level_1_Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1565,6 +1580,19 @@ PolygonCollider2D:
       - {x: 0.21307783, y: 0.47915164}
       - {x: 0.21529406, y: 0.51216066}
   m_UseDelaunayMesh: 0
+--- !u!114 &1607719212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607719205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2433efb6acae71045b08ad830c7f16e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 1
 --- !u!1 &1645491715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2320,7 +2348,7 @@ GameObject:
   - component: {fileID: 2054755312}
   m_Layer: 9
   m_Name: Level_3_Keycard
-  m_TagString: Untagged
+  m_TagString: Keycard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
