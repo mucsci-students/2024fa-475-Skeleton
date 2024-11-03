@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Attacker
   - Checkpoint
+  - Keycard
   layers:
   - Default
   - TransparentFX

@@ -79,8 +79,12 @@ public class PlayerMoves : Player
             transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f); // Set facing direction
             render.flipX = moveX < 0;
         }
-
-        FOV.fovRotation = moveX > 0 ? 85f : 265f;
+        
+        if(movementVector.magnitude>.75f)
+        {
+            float fovangle = Mathf.Atan2(moveX, moveY) * Mathf.Rad2Deg; //trig go brr
+            FOV.fovRotation = fovangle;
+        }
         FOV.DrawFieldofView();
     }
 

@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     protected float moveX;
     protected float moveY;
     protected int hp;
+    protected int securityClearance;
+
     protected float hitTimer = 0.1f;
     protected bool isAlive = true;
     protected bool isStealth;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         hp = 100;
+        securityClearance = 0;
         rb = GetComponent<Rigidbody2D>();
         movement = GetComponent<Animator>();
         moves = GetComponent<PlayerMoves>();
@@ -91,7 +94,10 @@ public class Player : MonoBehaviour
     }
 
 
-
+    public void GiveClearance(int securityLevel)
+    {
+        securityClearance = securityLevel;
+    }
 
     protected void OnCollisionEnter2D(Collision2D col)
     {
