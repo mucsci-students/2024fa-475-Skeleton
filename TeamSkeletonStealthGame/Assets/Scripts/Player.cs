@@ -4,8 +4,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(AudioClip))]
-[RequireComponent(typeof(AudioClip))]
 [RequireComponent(typeof(PlayerMoves))]
 
 public class Player : MonoBehaviour
@@ -13,13 +11,12 @@ public class Player : MonoBehaviour
     protected Rigidbody2D rb;
     protected Animator movement;
     protected PlayerMoves moves;
-
     protected SpriteRenderer render;
     protected float moveX;
     protected float moveY;
-    protected int hp;
     protected int securityClearance;
 
+    private int hp = 100;
     protected float hitTimer = 0.1f;
     protected bool isAlive = true;
     protected bool isStealth;
@@ -53,23 +50,36 @@ public class Player : MonoBehaviour
         
     }
 
+    public int getHP()
+    {
+        return hp;
+    }
+
     public void TakeDamage(int damage)
     {
-        if (isAlive && hitTimer >= 0.1f)
-        {
-            hp -= damage;
-            hitTimer = 0f;
-            // Play hit sound
-
-            Vector2 knockbackDirection = (transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized;
-            float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
-            rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
-
-            if (hp <= 0)
+        
+        hp -= damage;
+        if (hp <= 0)
                 Die();
-            
-        }
+        render.color = Color.red;
+        // Reset color after a short delay
+        Invoke(nameof(ResetColor), 0.1f); // Adjust delay if needed
+        Vector2 knockbackDirection = (transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)).normalized;
+        float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
+        rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+
+           
+        
     }
+
+    private void ResetColor()
+    {
+        // Reset to original color
+        render.color = Color.white; // Assuming the original color is white
+    }
+
+            
+    
 
     protected void Die()
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
-[RequireComponent(typeof(Player))]
 public class PlayerMoves : Player
 {
     public float normalSpeed = 3.0f;
@@ -19,19 +19,28 @@ public class PlayerMoves : Player
         onDeath += HandlePlayerDeath;
     }
 
-
-    //stop game and go to menu logic or last checkpoint.
-    private void HandlePlayerDeath()
+private void HandlePlayerDeath()
+{
+    Debug.Log("Game Over! Player has died.");
+    
+    GameObject gameover = GameObject.Find("GameOver");
+    if (gameover != null)
     {
-        Debug.Log("Game Over! Player has died.");
-        Time.timeScale = 0f;
-
+        gameover.SetActive(true); // Make UI visible
     }
 
-    private void HandlePlayerHit()
-    {
+    StartCoroutine(GameOverStop());
+}
 
-    }
+private IEnumerator GameOverStop()
+{
+    Time.timeScale = 1f; 
+
+    yield return new WaitForSecondsRealtime(3f);
+
+    Time.timeScale = 0f; 
+}
+
 
     private void Update()
     {
