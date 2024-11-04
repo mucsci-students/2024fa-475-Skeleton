@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpController : MonoBehaviour
 {
-    public Weapon weaponScript;
+   /* public Weapon weaponScript;
     private Player playerScript; // Reference to the Player
     private Rigidbody2D rb;
     private BoxCollider2D coll;
@@ -93,7 +93,7 @@ public class PickUpController : MonoBehaviour
             floatingitem.enabled = true; // Re-enable the floating effect
         }
     }
-}
+}*/
 
 
 }

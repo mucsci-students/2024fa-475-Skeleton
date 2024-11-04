@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class Weapon : MonoBehaviour
 {
-    public Rigidbody2D wpnBody;
+   /* public Rigidbody2D wpnBody;
     private Animation weaponAnimation;
     public BoxCollider2D wpnCollider;
     public Sprite wpnSprite;
@@ -50,7 +50,7 @@ public class Weapon : MonoBehaviour
 
             weaponAnimation.Play("WeaponSlash"); 
         }
-    }
+    }*/
 
 }
 
