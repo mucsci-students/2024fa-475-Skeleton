@@ -10,7 +10,7 @@ public class PISSCallScript : MonoBehaviour
 
     public float transitionTime = 1f;
 
-    public GameObject[] player;
+    public GameObject[] checkpoint;
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -24,12 +24,12 @@ public class PISSCallScript : MonoBehaviour
     {
         transition.SetTrigger("Start");
 
+        checkpoint = GameObject.FindGameObjectsWithTag("Checkpoint");
+        DontDestroyOnLoad(checkpoint[0]);
+
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene(levelIndex);
-
-        player = GameObject.FindGameObjectsWithTag("Player");
-        player[0].transform.position = new Vector3(player[0].GetComponent<Transform>().position.x, player[0].GetComponent<Transform>().position.y, player[0].GetComponent<Transform>().position.z);
 
     }
 }

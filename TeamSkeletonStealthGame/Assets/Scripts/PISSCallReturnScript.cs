@@ -12,21 +12,11 @@ public class PISSCallReturnScript : MonoBehaviour
     public GameObject[] player;
 
     private float timeUntilSpawn;
-
-    void Awake() {
-        SetTimeUntilTransition();
-    }
-
+    
     void Update() {
-        timeUntilSpawn -= Time.deltaTime;
-        if (timeUntilSpawn <= 0) {
+        if (Input.GetKeyDown("escape")) {
             SceneManager.LoadScene(1);
         }
-    }
-
-        private void SetTimeUntilTransition()
-    {
-        timeUntilSpawn = 5f;
     }
 
 }
