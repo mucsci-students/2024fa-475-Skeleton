@@ -18,6 +18,7 @@ public class PISSCallScript : MonoBehaviour
         {
             StartCoroutine(LoadLevel(2));
         }
+
     }
 
     IEnumerator LoadLevel(int levelIndex)
@@ -25,11 +26,12 @@ public class PISSCallScript : MonoBehaviour
         transition.SetTrigger("Start");
 
         checkpoint = GameObject.FindGameObjectsWithTag("Checkpoint");
-        DontDestroyOnLoad(checkpoint[0]);
+
+        checkpoint[0].GetComponent<Collider2D>().enabled = false;
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadScene(levelIndex);
-
+        SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("P.I.S.S Call 1"));
     }
 }

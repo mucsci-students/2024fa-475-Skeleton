@@ -8,14 +8,14 @@ public class PISSCallReturnScript : MonoBehaviour
 {
 
     public Animator transition;
-
-    public GameObject[] player;
-
-    private float timeUntilSpawn;
     
     void Update() {
         if (Input.GetKeyDown("escape")) {
-            SceneManager.LoadScene(1);
+            SceneManager.UnloadSceneAsync(2, UnloadSceneOptions.None); 
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Level 1"));
+            Scene scene = SceneManager.GetActiveScene();
+            var objects = scene.GetRootGameObjects();
+            Destroy(objects[3]);
         }
     }
 
