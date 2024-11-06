@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 // General behavior of an enemy: see readme for FSM breakdown
@@ -42,7 +41,7 @@ public class Enemy : MonoBehaviour
         //check if we detect the player and go to combative state if we do\
         if(FOV.visibleTargets.Count>0)// If a target (the player probably) is seen
         { //COMBAT MODE
-            SetSpeed(0.1f);
+            SetSpeed(0.001f);
             // Move from the enemy's current position to wherever the spotted target is
             Vector3 startPosition = transform.position;
             Vector3 endPosition = FOV.visibleTargets[0].transform.position;
@@ -54,6 +53,52 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    public GameObject exclamationPointPrefab; // Reference to the exclamation point prefab (set in Inspector)
+    private GameObject exclamationPointInstance; // Instance of the exclamation point
+    private bool soundPlayed = true;
+    protected virtual void LateUpdate()
+    {
+        if (FOV.visibleTargets.Count > 0 && !soundPlayed) // Check if there are visible targets and sound hasn't been played
+        {
+            
+            Invoke("SpawnEnemy", 2f);
+            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+            audioSource.PlayOneShot(audioSource.clip);
+            
+            soundPlayed = true; // Prevent further sound triggers until reset
+
+            // Show the exclamation point above the enemy's head
+            ShowExclamationPoint();
+        }
+        else if (FOV.visibleTargets.Count == 0 && soundPlayed) // Reset the flag when no targets are visible
+        {
+            soundPlayed = false;
+        }
+    }
+
+    private void ShowExclamationPoint()
+    {
+        if (exclamationPointPrefab != null && exclamationPointInstance == null)
+        {
+            // Instantiate the exclamation point prefab
+            exclamationPointInstance = Instantiate(exclamationPointPrefab, transform.position + Vector3.forward, Quaternion.identity);
+            
+            StartCoroutine(HideExclamationPoint());
+        }
+    }
+
+    private IEnumerator HideExclamationPoint()
+    {
+        // Wait for 1 second (adjust to suit your needs)
+        yield return new WaitForSeconds(1f);
+        
+        // Destroy the exclamation point object
+        if (exclamationPointInstance != null)
+        {
+            Destroy(exclamationPointInstance);
+        }
+    }
 
     public void SetSpeed(float newSpeed){
         speed = newSpeed;
@@ -72,7 +117,7 @@ public class Enemy : MonoBehaviour
     }
 
     public void Die(){
-        Destroy(gameObject);
+        Invoke("SpawnEnemy", 1f);
     }
 
 }
