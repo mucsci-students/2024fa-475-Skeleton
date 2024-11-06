@@ -130,6 +130,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
+      propertyPath: textSpeed
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
+      propertyPath: lines.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
+      propertyPath: lines.Array.data[0]
+      value: '"This is the Colonel. Thanks for picking up your Personal Intercommunications
+        Speaking System Emergency Radio (P.I.S.S.E.R). We don''t have much time."
+        (Left click to cont.)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
+      propertyPath: lines.Array.data[1]
+      value: Use WASD to move around.
+      objectReference: {fileID: 0}
+    - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
+      propertyPath: lines.Array.data[2]
+      value: '"Try looking for a place you might be able to escape! We''ll catch
+        up in another P.I.S.S call later!" (esc to exit P.I.S.S Call)'
+      objectReference: {fileID: 0}
     - target: {fileID: 2932901882233034441, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
       propertyPath: m_SizeDelta.x
       value: -453.9044
@@ -557,6 +580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 641478d46ec294d36a201b48163146c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: Level 0
   transition: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

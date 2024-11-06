@@ -12,16 +12,19 @@ public class PISSCallScript : MonoBehaviour
 
     public GameObject[] checkpoint;
 
+    [SerializeField]
+    protected string PISSCallName;
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player"))
         {
-            StartCoroutine(LoadLevel(2));
+            StartCoroutine(LoadLevel(PISSCallName));
         }
 
     }
 
-    IEnumerator LoadLevel(int levelIndex)
+    IEnumerator LoadLevel(string pisscall)
     {
         transition.SetTrigger("Start");
 
@@ -31,7 +34,7 @@ public class PISSCallScript : MonoBehaviour
 
         yield return new WaitForSeconds(transitionTime);
 
-        SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("P.I.S.S Call 1"));
+        SceneManager.LoadSceneAsync(pisscall, LoadSceneMode.Additive);
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(PISSCallName));
     }
 }
