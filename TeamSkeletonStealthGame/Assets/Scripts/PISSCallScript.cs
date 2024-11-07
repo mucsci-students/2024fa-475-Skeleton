@@ -28,10 +28,6 @@ public class PISSCallScript : MonoBehaviour
     {
         transition.SetTrigger("Start");
 
-        checkpoint = GameObject.FindGameObjectsWithTag("Checkpoint");
-
-        checkpoint[0].GetComponent<Collider2D>().enabled = false;
-
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadSceneAsync(pisscall, LoadSceneMode.Additive);
