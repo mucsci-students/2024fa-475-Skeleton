@@ -35,6 +35,6 @@ public class PISSCallScript : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadSceneAsync(pisscall, LoadSceneMode.Additive);
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(PISSCallName));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(pisscall));
     }
 }
