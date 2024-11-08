@@ -10,8 +10,6 @@ public class PISSCallScript : MonoBehaviour
 
     public float transitionTime = 1f;
 
-    public GameObject[] checkpoint;
-
     [SerializeField]
     protected string PISSCallName;
 
@@ -26,6 +24,10 @@ public class PISSCallScript : MonoBehaviour
 
     IEnumerator LoadLevel(string pisscall)
     {
+        GameObject originalGameObject = GameObject.Find("Player");
+        GameObject child = originalGameObject.transform.GetChild(3).gameObject;
+        child.SetActive(false);
+
         transition.SetTrigger("Start");
 
         yield return new WaitForSeconds(transitionTime);

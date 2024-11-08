@@ -19,7 +19,11 @@ public class PISSCallReturnScript : MonoBehaviour
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             Scene scene = SceneManager.GetActiveScene();
             var objects = scene.GetRootGameObjects();
+            Destroy(objects[2]);
             Destroy(objects[3]);
+            GameObject originalGameObject = GameObject.Find("Player");
+            GameObject child = originalGameObject.transform.GetChild(3).gameObject;
+            child.SetActive(true);
         }
     }
 

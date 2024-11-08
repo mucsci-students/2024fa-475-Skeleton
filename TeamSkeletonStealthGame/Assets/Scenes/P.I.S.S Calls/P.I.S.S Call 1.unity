@@ -360,6 +360,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d332187027c7c40b2dc648e86ce213, type: 3}
+--- !u!95 &80965197 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4358914202813663266, guid: 35d332187027c7c40b2dc648e86ce213, type: 3}
+  m_PrefabInstance: {fileID: 80965196}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &296934356 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4420381960150775242, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
@@ -742,7 +747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Level 0
   PISSCallName: P.I.S.S Call 1
-  transition: {fileID: 0}
+  transition: {fileID: 80965197}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

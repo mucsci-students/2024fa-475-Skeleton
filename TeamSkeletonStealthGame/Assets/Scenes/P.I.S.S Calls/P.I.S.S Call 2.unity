@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
       propertyPath: lines.Array.data[8]
       value: '"There''s a keycard somewhere in the lab. It''ll get you level 1 access.
-        This will allow you to move into the system."sewage sy'
+        This will allow you to move into the sewage ystem."'
       objectReference: {fileID: 0}
     - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
       propertyPath: lines.Array.data[9]
