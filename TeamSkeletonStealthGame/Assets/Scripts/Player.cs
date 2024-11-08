@@ -9,6 +9,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
+    public Weapon weapon;
     protected Animator movement;
     protected PlayerMoves moves;
     protected SpriteRenderer render;
@@ -68,7 +69,6 @@ public class Player : MonoBehaviour
         float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
         rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
 
-           
         
     }
 

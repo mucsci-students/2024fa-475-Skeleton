@@ -2,28 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(FloatingItem))]
+
+
 public class PickUpController : MonoBehaviour
 {
-   /* public Weapon weaponScript;
-    private Player playerScript; // Reference to the Player
-    private Rigidbody2D rb;
-    private BoxCollider2D coll;
-    private Transform playerTransform;
+    //the weapon object this script is attached to. every weapon has
+    // a pickup controller
+    private Weapon weapon;
+    private Player player; // Reference to the Player
 
-    private FloatingItem floatingitem;
+    private FloatingItem floatingitem; //non equipped object logic
+    public float pickUpRange = 2.0f; //radius to allow pickup
+    public bool equipped = false; //is the weapon equipped
 
-    public float pickUpRange = 2.0f; // Distance for pickup
-    public bool equipped = false;
+    private Transform player_pos; //players position
+
+    private Vector3 distanceToPlayer; //weapon to player
+    
 
     private void Start()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<Player>(); // Correctly assign playerScript
-
-        rb = GetComponent<Rigidbody2D>();
-        coll = GetComponent<BoxCollider2D>();
-        playerTransform = playerScript.transform;
-
+        //Finds Game object tagged as player in the scene, THEN gets player script from it.
+        GameObject p = GameObject.FindWithTag("Player");
+        player = p.GetComponent<Player>(); 
+        player_pos = player.transform;
         floatingitem = GetComponent<FloatingItem>(); // Get the FloatingItem component
 
     }
@@ -32,7 +36,7 @@ public class PickUpController : MonoBehaviour
     {
         if (equipped) return; // Skip if already equipped
 
-        Vector3 distanceToPlayer = playerTransform.position - transform.position;
+        distanceToPlayer = player_pos.position - transform.position;
 
         if (distanceToPlayer.magnitude <= pickUpRange && Input.GetKeyDown(KeyCode.E))
         {
@@ -42,11 +46,11 @@ public class PickUpController : MonoBehaviour
 
     public void PickUp()
     {
-        if (playerScript.weapon !=null)
+        if (player.weapon !=null)
             return;
 
         equipped = true;
-        transform.SetParent(playerTransform);
+        transform.SetParent(player_pos);
 
         // Adjust this offset based on your player model
         Vector3 weaponOffset = new Vector3(0.3f, -1.2f, 0f); // Example offset
@@ -54,11 +58,9 @@ public class PickUpController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(new Vector3(0f,0f,-60));
         transform.localScale = new Vector3(1.2f, 1.5f, 1f); // Adjust scale if necessary
 
-        rb.isKinematic = true; // Disable physics
-        coll.isTrigger = true; // Enable trigger
 
-        weaponScript.enabled = true; // Enable weapon functionality
-        playerScript.weapon = weaponScript; // Assign weapon to player
+        weapon.enabled = true; // Enable weapon functionality
+        player.weapon = weapon; // Assign weapon to player
 
         if (floatingitem != null)
         {
@@ -73,19 +75,18 @@ public class PickUpController : MonoBehaviour
     {
         equipped = false;
         transform.SetParent(null); // Detach from player
-        var sort = weaponScript.GetComponent<SpriteRenderer>();
+        var sort = weapon.GetComponent<SpriteRenderer>();
         sort.sortingLayerName = "Interacable Objects";
 
         // Set weapon position to player's current position with an offset
-        Vector3 dropPosition = playerTransform.position;
-        float dropOffsetX = (playerTransform.localScale.x > 0) ? 1f : -1f; // 1 unit to the right if facing right, -1 if facing left
+        Vector3 dropPosition = player_pos.position;
+        float dropOffsetX = (player_pos.localScale.x > 0) ? 1f : -1f; // 1 unit to the right if facing right, -1 if facing left
         dropPosition += new Vector3(dropOffsetX, -2f, 0); // Offset by -2 units in the Y direction
         transform.position = dropPosition;
 
-        rb.isKinematic = true; // Keep it kinematic since we're not using physics
-        coll.isTrigger = false; // Enable collision
-        weaponScript.enabled = false; // Disable weapon functionality
-        playerScript.weapon = null; // Clear reference to dropped weapon
+        
+        weapon.enabled = false; // Disable weapon functionality
+        player.weapon = null; // Clear reference to dropped weapon
 
         if (floatingitem != null)
         {
@@ -93,7 +94,7 @@ public class PickUpController : MonoBehaviour
             floatingitem.enabled = true; // Re-enable the floating effect
         }
     }
-}*/
+}
 
 
 }
