@@ -5,11 +5,13 @@ using UnityEngine;
 
 
 // General behavior of an enemy: see readme for FSM breakdown
+[RequireComponent(typeof(Collider2D))]
+
 public class Enemy : MonoBehaviour
 {
     
     public float speed = 2f;
-    public float hp = 5;
+    public float hp = 50f;
     float latestSpotTime = 0; // Keeps track of the last time this enemy saw the player
     public Material fovMaterial;
     public Material fovCombatMaterial;
@@ -17,7 +19,7 @@ public class Enemy : MonoBehaviour
     // Resetting our vaiables
     public Vector3 StartPos {get; private set;}
     public Quaternion StartRot {get; private set;}
-
+    public Collider2D col;
 
     public FieldOfView FOV{get; private set;}
     public MeshRenderer RenderFOV{get;private set;}
@@ -25,6 +27,8 @@ public class Enemy : MonoBehaviour
     // Assign appropriate variables that will be uninitialized in editor
     protected virtual void Awake(){ //protected so only visible in this class, virtual so we can override it depending on enemy type if we decide to implement that
         FOV = GetComponent<FieldOfView>();
+        col = GetComponent<Collider2D>();
+        col.isTrigger = true;
         RenderFOV = FOV.viewMeshFilter.GetComponent<MeshRenderer>();
     }
 
@@ -62,9 +66,9 @@ public class Enemy : MonoBehaviour
         if (FOV.visibleTargets.Count > 0 && !soundPlayed) // Check if there are visible targets and sound hasn't been played
         {
             
-            Invoke("SpawnEnemy", 2f);
+           /* Invoke("SpawnEnemy", 2f);
             AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource.PlayOneShot(audioSource.clip);*/
             
             soundPlayed = true; // Prevent further sound triggers until reset
 

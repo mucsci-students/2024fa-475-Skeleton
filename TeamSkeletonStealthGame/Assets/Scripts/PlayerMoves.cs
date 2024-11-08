@@ -8,11 +8,15 @@ public class PlayerMoves : Player
     public float stealthSpeed = 1.5f;
     private FieldOfView FOV;
     private bool isMoving;
+    public  Collider2D punchCollider; 
+
 
     private void Start()
     {
         // Initialize Player components
         rb = GetComponent<Rigidbody2D>();
+        punchCollider = GetComponent<Collider2D>();
+        punchCollider.enabled = false; 
         render = GetComponent<SpriteRenderer>();
         movement = GetComponent<Animator>();
         FOV = GetComponent<FieldOfView>();
@@ -83,11 +87,12 @@ private IEnumerator GameOverStop()
         isMoving = movementVector.magnitude > 0.01f;
         movement.SetBool("isMoving", isMoving);
 
-        if (isMoving) 
+        if (isMoving)
         {
-            transform.localScale = new Vector3(Mathf.Sign(moveX) * 0.8f, 0.8f, 0.8f); // Set facing direction
-            render.flipX = moveX < 0;
+            render.flipX = moveX < 0; ///if you see the math (0.8 .8 .8 ) garbage in this statment remove it.
+            //additional transforms cause issues here
         }
+
         
         if(movementVector.magnitude>.75f)
         {
@@ -110,12 +115,35 @@ private IEnumerator GameOverStop()
     private void Punch()
     {
         movement.SetTrigger("Punch");
+        punchCollider.enabled = true;
+        Invoke("disablepunch",1.0f);
+
+
     }
+    private void disablepunch()
+    {
+        punchCollider.enabled = false;
+    }
+     private void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("Attacker"))
+    {
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(10f);
+        }
+        else
+        {
+            Debug.LogWarning("Enemy component not found on Attacker, fool");
+        }
+    }
+}
+
 
     private void ToggleStealth()
     {
         isStealth = !isStealth;
         movement.SetBool("isStealthy", isStealth);
-        Debug.Log("Stealth mode: " + (isStealth ? "On" : "Off"));
     }
 }
