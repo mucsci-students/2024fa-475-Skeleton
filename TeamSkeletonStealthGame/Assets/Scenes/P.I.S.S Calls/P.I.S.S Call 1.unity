@@ -605,9 +605,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1912666708}
   - component: {fileID: 1912666707}
-  - component: {fileID: 1912666706}
   - component: {fileID: 1912666709}
   - component: {fileID: 1912666710}
+  - component: {fileID: 1912666711}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -615,14 +615,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1912666706
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1912666705}
-  m_Enabled: 1
 --- !u!20 &1912666707
 Camera:
   m_ObjectHideFlags: 0
@@ -748,6 +740,14 @@ MonoBehaviour:
   sceneName: Level 0
   PISSCallName: P.I.S.S Call 1
   transition: {fileID: 80965197}
+--- !u!81 &1912666711
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912666705}
+  m_Enabled: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
