@@ -404,6 +404,7 @@ MonoBehaviour:
   respawnPoint: {x: 0, y: 0, z: 0}
   normalSpeed: 3
   stealthSpeed: 1.5
+  punchCollider: {fileID: 0}
 --- !u!70 &7738025679619182955
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

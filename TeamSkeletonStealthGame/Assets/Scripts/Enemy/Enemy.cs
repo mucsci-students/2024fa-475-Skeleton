@@ -6,12 +6,16 @@ using UnityEngine;
 
 // General behavior of an enemy: see readme for FSM breakdown
 [RequireComponent(typeof(Collider2D))]
-
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))] //these statements actually add the component in the editor for you if not there already
 public class Enemy : MonoBehaviour
 {
     
     public float speed = 2f;
-    public float hp = 50f;
+    public int hp = 50;
+
+    private Animator enemyMovement; //enemy animation controller
     float latestSpotTime = 0; // Keeps track of the last time this enemy saw the player
     public Material fovMaterial;
     public Material fovCombatMaterial;
@@ -23,12 +27,18 @@ public class Enemy : MonoBehaviour
 
     public FieldOfView FOV{get; private set;}
     public MeshRenderer RenderFOV{get;private set;}
+    private SpriteRenderer spr; //used in takedamage to flash enemy sprite red when hit
+    private Rigidbody2D rb;
 
     // Assign appropriate variables that will be uninitialized in editor
     protected virtual void Awake(){ //protected so only visible in this class, virtual so we can override it depending on enemy type if we decide to implement that
         FOV = GetComponent<FieldOfView>();
         col = GetComponent<Collider2D>();
-        col.isTrigger = true;
+        rb = GetComponent<Rigidbody2D>();
+        spr = GetComponent<SpriteRenderer>();
+        rb.gravityScale = 0;
+        rb.freezeRotation = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         RenderFOV = FOV.viewMeshFilter.GetComponent<MeshRenderer>();
     }
 
@@ -108,15 +118,37 @@ public class Enemy : MonoBehaviour
         speed = newSpeed;
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(int damage)
     {
-        if(amount>0)
-        {
-            hp -= amount;
-            if(hp<0)
-            {
+        
+        this.hp -= damage;
+        if (hp <= 0)
                 Die();
-            }
+        spr.color = Color.red;
+        // Reset color after a short delay
+        Invoke(nameof(ResetColor), 0.1f); // Adjust delay if needed
+        float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
+        rb.AddForce(new Vector2(2.0f,2.0f) * knockbackForce, ForceMode2D.Impulse);
+
+        
+    }
+
+    private void ResetColor()
+    {
+        // Reset to original color
+        spr.color = Color.white; // Assuming the original color is white
+    }
+    protected void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.CompareTag("PlayerJab"))
+        {
+            
+            TakeDamage(10);
+        }
+        if (col.gameObject.CompareTag("PlayerKick"))
+        {
+            
+            TakeDamage(25);
         }
     }
 

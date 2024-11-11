@@ -8,6 +8,8 @@ TagManager:
   - Checkpoint
   - Keycard
   - GameOver
+  - PlayerJab
+  - PlayerKick
   layers:
   - Default
   - TransparentFX

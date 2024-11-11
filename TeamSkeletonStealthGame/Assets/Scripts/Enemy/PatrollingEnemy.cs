@@ -18,6 +18,7 @@ public class PatrollingEnemy : Enemy
     {
         currentStop = 0;
         nextStop = 1;
+        patrolStops = GetComponent<GameObject[]>();
         latestCheckInTime = Time.time; // Initialize this enemie's (zero'th) stop check in
         base.Start();
     }
@@ -29,7 +30,7 @@ public class PatrollingEnemy : Enemy
         
         // Wait it out until we've spent all our time at this post, then reset the timer and move on
         if(!FOV.targetAcquired){
-    if(waitDuration<=0){ 
+            if(waitDuration<=0){ 
         Vector3 startPosition = patrolStops[currentStop].transform.position;
         Vector3 endPosition = (currentStop < patrolStops.Length - 1)?patrolStops[nextStop].transform.position:patrolStops[0].transform.position;
         

@@ -89,8 +89,6 @@ public class Player : MonoBehaviour
         movement.SetTrigger("Die");
         isAlive = false;
         movement.enabled = false;
-        Sprite current=GetComponent<SpriteRenderer>().sprite;
-        current = Resources.Load<Sprite>("Dead");
         // Play death sound
 
         onDeath?.Invoke();

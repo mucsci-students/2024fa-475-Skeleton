@@ -76,31 +76,41 @@ private IEnumerator GameOverStop()
             ToggleStealth();
         
     }
+private float maxTiltAngle = 10f; // Maximum tilt angle for up/down movement
 
-    private void HandleMovement()
+private void HandleMovement()
+{
+    float speed = isStealth ? stealthSpeed : normalSpeed;
+    Vector2 movementVector = new Vector2(moveX * speed, moveY * speed);
+
+    rb.velocity = movementVector;
+
+    isMoving = movementVector.magnitude > 0.01f;
+    movement.SetBool("isMoving", isMoving);
+
+    if (isMoving)
     {
-        float speed = isStealth ? stealthSpeed : normalSpeed;
-        Vector2 movementVector = new Vector2(moveX * speed, moveY * speed);
+        render.flipX = moveX < 0;
 
-        rb.velocity = movementVector;
-
-        isMoving = movementVector.magnitude > 0.01f;
-        movement.SetBool("isMoving", isMoving);
-
-        if (isMoving)
-        {
-            render.flipX = moveX < 0; ///if you see the math (0.8 .8 .8 ) garbage in this statment remove it.
-            //additional transforms cause issues here
-        }
-
-        
-        if(movementVector.magnitude>.75f)
-        {
-            float fovangle = Mathf.Atan2(moveX, moveY) * Mathf.Rad2Deg; //trig go brr
-            FOV.fovRotation = fovangle;
-        }
-        FOV.DrawFieldofView();
+        // Rotate sprite based on vertical movement
+        float targetTilt = moveY * maxTiltAngle;
+        float smoothTilt = Mathf.LerpAngle(transform.eulerAngles.z, targetTilt, Time.deltaTime * 5f);
+        transform.eulerAngles = new Vector3(0, 0, smoothTilt);
     }
+    else
+    {
+        // Reset rotation when player stops moving
+        transform.eulerAngles = Vector3.zero;
+    }
+
+    if (movementVector.magnitude > 0.75f)
+    {
+        float fovAngle = Mathf.Atan2(moveX, moveY) * Mathf.Rad2Deg;
+        FOV.fovRotation = fovAngle;
+    }
+    FOV.DrawFieldofView();
+}
+
 
 
     private void Jumpkick()
@@ -114,9 +124,10 @@ private IEnumerator GameOverStop()
 
     private void Punch()
     {
-        movement.SetTrigger("Punch");
         punchCollider.enabled = true;
-        Invoke("disablepunch",1.0f);
+
+        movement.SetTrigger("Punch");
+        Invoke("disablepunch",2.0f);
 
 
     }
@@ -124,14 +135,15 @@ private IEnumerator GameOverStop()
     {
         punchCollider.enabled = false;
     }
+    
      private void OnTriggerEnter2D(Collider2D other)
-{
+    {
     if (other.CompareTag("Attacker"))
     {
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy != null)
         {
-            enemy.TakeDamage(10f);
+            enemy.TakeDamage(10);
         }
         else
         {
