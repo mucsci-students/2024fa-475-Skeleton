@@ -1,17 +1,25 @@
 
 
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu; // Private variable that shows up in editor
+    public GameObject pauseMenu; // Private variable that shows up in editor
+    public static bool isPaused; // Represents whether the game is paused or not
     private int playerClearance;
     public Text UITextClearance;
     public int Clearance{
         get{return playerClearance;}
         set{playerClearance = value; UITextClearance.GetComponent<Text>().text = "Security Clearance: Level " + playerClearance;}
+    }
+    private int playerAmmo;
+    public Text UITextAmmo;
+    public int Ammo{
+        get{return playerAmmo;}
+        set{playerAmmo = value; UITextClearance.GetComponent<Text>().text = "Bullets: " + playerAmmo;}
     }
     // Start is called before the first frame update
     void Start()
@@ -19,14 +27,29 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+    // Update is called once per frame to check if we paused with 'Esc'
     void Update()
     {
-        
+        if(SceneManager.GetActiveScene().buildIndex!=0){
+            if(Input.GetKeyDown(KeyCode.Escape)){
+                if(isPaused){
+                    Resume();
+                }
+                else{
+                    Pause();
+                }
+            }
+        }
     }
 
     public void ReturnToMenu(){
-        SceneManager.LoadScene("Main_Menu"); 
+        SceneManager.LoadScene("Menu"); 
+    }
+
+    
+    public void LoadSceneByName(String name){
+        if(SceneManager.GetActiveScene().buildIndex==0){
+        SceneManager.LoadScene(name); }
     }
 
     // Default method to get us to first level
@@ -50,6 +73,7 @@ public class GameManager : MonoBehaviour
         // It should bring up the pause menu and freeze the game
         pauseMenu.SetActive(true);
         Time.timeScale = 0f; 
+        isPaused = true;
     }
     public void Resume()
     {        
@@ -57,13 +81,15 @@ public class GameManager : MonoBehaviour
         // It should get rid of the pause menu and unfreeze the game
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
-        
+        isPaused = false;
     }
     public void Home()
     {
         // This function is called in the pause menu to return to the main menu
         // It should resume time and use the SceneManager to load the main menu
         Time.timeScale = 1f;
+        isPaused = false;
+        pauseMenu.SetActive(false);
         Invoke("ReturnToMenu", 1f);
         
     }
