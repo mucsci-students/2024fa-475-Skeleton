@@ -181,8 +181,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2383991278380716600, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
       propertyPath: lines.Array.data[9]
-      value: '"Shit, I think my time is up. I''ll give you another P.I.S.S call when
-        you get there! Good Luck!"'
+      value: '"I think my time is up. I''ll give you another P.I.S.S call later!
+        Good Luck!"'
       objectReference: {fileID: 0}
     - target: {fileID: 2932901882233034441, guid: 5f67371fb535841b2aed80cf5b6d4769, type: 3}
       propertyPath: m_SizeDelta.x
