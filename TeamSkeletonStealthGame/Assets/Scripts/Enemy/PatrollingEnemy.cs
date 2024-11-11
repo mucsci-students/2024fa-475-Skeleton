@@ -18,7 +18,7 @@ public class PatrollingEnemy : Enemy
     {
         currentStop = 0;
         nextStop = 1;
-        patrolStops = GetComponent<GameObject[]>();
+        for(GameObject obj )
         latestCheckInTime = Time.time; // Initialize this enemie's (zero'th) stop check in
         base.Start();
     }

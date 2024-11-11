@@ -5,6 +5,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerMoves))]
+[RequireComponent(typeof(CircleCollider2D))]
+
 
 public class Player : MonoBehaviour
 {

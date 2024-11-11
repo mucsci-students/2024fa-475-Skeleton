@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0c691cf4a285e7478a0971f41e62f90
+guid: 984f38872337bbd43bd2a5c69c2b0abc
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -147,91 +147,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: assault_sit_down_0
-      rect:
-        serializedVersion: 2
-        x: 25
-        y: 16
-        width: 18
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bba23921222e0d04eaddb65a74aa8ce5
-      internalID: 1126155244
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: assault_sit_down_1
-      rect:
-        serializedVersion: 2
-        x: 105
-        y: 16
-        width: 18
-        height: 30
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 082e17ed1b0f429408b05367302427af
-      internalID: -209357862
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: assault_sit_down_2
-      rect:
-        serializedVersion: 2
-        x: 185
-        y: 16
-        width: 18
-        height: 28
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e3f2856d8b000244a29b94790e62855
-      internalID: -1619141656
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: assault_sit_down_3
-      rect:
-        serializedVersion: 2
-        x: 264
-        y: 16
-        width: 21
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7e783d892f1a5a4784cfec104d73e9f
-      internalID: -624347080
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -242,11 +158,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      assault_sit_down_0: 1126155244
-      assault_sit_down_1: -209357862
-      assault_sit_down_2: -1619141656
-      assault_sit_down_3: -624347080
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
