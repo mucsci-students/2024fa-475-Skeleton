@@ -18,7 +18,11 @@ using System.Collections.Generic;
 
         [Header("Key Door")]
         public bool key_can_open;
-        public int key_index;
+        public int key_index;    
+
+        [Header("Keycard Door")]
+        public bool keycard_can_open;
+        public int required_access_level;
 
         [Header("Lever Door")]
         public LeverState lever_state_required;
@@ -196,6 +200,16 @@ using System.Collections.Generic;
         {
             nb_keys_inside += value;
         }
+        public bool CanKeycardUnlock(Keycard keycard)
+        {
+            return keycard_can_open && keycard.clearance >= required_access_level;
+        }
+
+        public void UnlockWithKeycard(int value)
+        {
+            nb_keys_inside += value;
+        }
+
 
         public void ResetOne()
         {
