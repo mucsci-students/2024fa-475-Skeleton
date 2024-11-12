@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     protected SpriteRenderer render;
     protected float moveX;
     protected float moveY;
-    protected int securityClearance;
+    public int securityClearance;
 
     private int hp = 100;
     protected float hitTimer = 0.1f;
