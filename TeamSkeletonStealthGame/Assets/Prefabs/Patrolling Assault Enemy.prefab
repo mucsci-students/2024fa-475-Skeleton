@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7913955247525161958}
   - component: {fileID: 5194791913999684448}
   - component: {fileID: 3548500375982628816}
+  - component: {fileID: 4433105685083902433}
   m_Layer: 8
   m_Name: Patrolling Assault Enemy
   m_TagString: Untagged
@@ -161,7 +162,10 @@ MonoBehaviour:
   speed: 2
   hp: 5
   fovMaterial: {fileID: 2100000, guid: f0ab1042a94be6046be7e191a3abaea4, type: 2}
-  fovCombatMaterial: {fileID: 2100000, guid: 3192c304799e1a64db50f08aab64a77b, type: 2}
+  fovCombatMaterial: {fileID: 2100000, guid: 5e7e0cdfaa27294499be541213d79054, type: 2}
+  col: {fileID: 0}
+  alertPrefab: {fileID: 340611437621558659, guid: b5c5af8c97d246442abfd971f4b6bc81, type: 3}
+  alertDuration: 2
 --- !u!114 &5194791913999684448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +181,10 @@ MonoBehaviour:
   speed: 4
   hp: 5
   fovMaterial: {fileID: 2100000, guid: f0ab1042a94be6046be7e191a3abaea4, type: 2}
-  fovCombatMaterial: {fileID: 2100000, guid: 3192c304799e1a64db50f08aab64a77b, type: 2}
+  fovCombatMaterial: {fileID: 2100000, guid: 5e7e0cdfaa27294499be541213d79054, type: 2}
+  col: {fileID: 0}
+  alertPrefab: {fileID: 340611437621558659, guid: b5c5af8c97d246442abfd971f4b6bc81, type: 3}
+  alertDuration: 2
   waitDuration: 2
   patrolStops:
   - {fileID: 0}
@@ -211,6 +218,33 @@ MonoBehaviour:
   edgeDistThreshold: 0.5
   viewMeshFilter: {fileID: 7641387083632006002}
   targetAcquired: 0
+--- !u!50 &4433105685083902433
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5979218470888820575}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &9220662061434543367
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,52 +68,47 @@ public class Enemy : MonoBehaviour
     }
 
 
-    public GameObject exclamationPointPrefab; // Reference to the exclamation point prefab (set in Inspector)
-    private GameObject exclamationPointInstance; // Instance of the exclamation point
+    public GameObject alertPrefab; // Reference to the exclamation point prefab (set in Inspector)
+    private GameObject alertInstance; // Priv reference to the instance of the alert
+    public float alertDuration = 2f; // Keep alert symbol up for 2 seconds
     private bool soundPlayed = true;
     protected virtual void LateUpdate()
     {
         if (FOV.visibleTargets.Count > 0 && !soundPlayed) // Check if there are visible targets and sound hasn't been played
         {
-            
-           /* Invoke("SpawnEnemy", 2f);
-            AudioSource audioSource = gameObject.GetComponent<AudioSource>();
-            audioSource.PlayOneShot(audioSource.clip);*/
-            
-            soundPlayed = true; // Prevent further sound triggers until reset
-
-            // Show the exclamation point above the enemy's head
-            ShowExclamationPoint();
+            GenerateAlert();
         }
         else if (FOV.visibleTargets.Count == 0 && soundPlayed) // Reset the flag when no targets are visible
         {
             soundPlayed = false;
+            if(alertInstance!=null){
+                Destroy(alertInstance);
+                alertInstance = null;
+            }
         }
     }
 
-    private void ShowExclamationPoint()
+    public void GenerateAlert()
     {
-        if (exclamationPointPrefab != null && exclamationPointInstance == null)
+        //Invoke("SpawnEnemy", 2f);
+        AudioSource audioSource = gameObject.GetComponent<AudioSource>();
+        if (audioSource != null && audioSource.clip != null)
         {
-            // Instantiate the exclamation point prefab
-            exclamationPointInstance = Instantiate(exclamationPointPrefab, transform.position + Vector3.forward, Quaternion.identity);
-            
-            StartCoroutine(HideExclamationPoint());
+            audioSource.PlayOneShot(audioSource.clip);
+            soundPlayed = true;  // Set flag to prevent re-triggering
         }
-    }
 
-    private IEnumerator HideExclamationPoint()
-    {
-        // Wait for 1 second (adjust to suit your needs)
-        yield return new WaitForSeconds(1f);
-        
-        // Destroy the exclamation point object
-        if (exclamationPointInstance != null)
-        {
-            Destroy(exclamationPointInstance);
-        }
-    }
+        // Show the exclamation point above the enemy's head
+        // Spawn the alert image a little above the enemy's position
+        Vector3 alertPosition = transform.position + new Vector3(0, 1.23f, 0); // Adjust the offset as needed
+        GameObject alertInstance = Instantiate(alertPrefab, alertPosition, Quaternion.identity);
 
+        // Add the helper follow script to keep the alert above the enemy
+        alertInstance.AddComponent<FollowEnemy>().target = this.transform;
+
+        // Destroy the alert image after the specified duration
+        Destroy(alertInstance, alertDuration);
+    }
     public void SetSpeed(float newSpeed){
         speed = newSpeed;
     }
@@ -156,4 +151,18 @@ public class Enemy : MonoBehaviour
         Invoke("SpawnEnemy", 1f);
     }
 
+}
+public class FollowEnemy : MonoBehaviour
+{
+    public Transform target; // The enemy this alert should follow
+    public Vector3 offset = new Vector3(0, 1.23f, 0); // Adjust as needed
+
+    void Update()
+    {
+        if (target != null)
+        {
+            // Set the position to follow the target with an offset
+            transform.position = target.position + offset;
+        }
+    }
 }
