@@ -18,12 +18,13 @@ public class PISSCallReturnScript : MonoBehaviour
             SceneManager.UnloadSceneAsync(PISSCallName, UnloadSceneOptions.None); 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             Scene scene = SceneManager.GetActiveScene();
-            var objects = scene.GetRootGameObjects();
-            Destroy(objects[2]);
-            Destroy(objects[3]);
+            
             GameObject originalGameObject = GameObject.Find("Player");
             GameObject child = originalGameObject.transform.GetChild(3).gameObject;
             child.SetActive(true);
+
+            GameObject levelLoader1 = GameObject.Find("LevelLoader 1");
+            Destroy(levelLoader1);
         }
     }
 

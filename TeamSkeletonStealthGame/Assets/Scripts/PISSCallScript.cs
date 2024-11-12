@@ -26,6 +26,7 @@ public class PISSCallScript : MonoBehaviour
     {
         GameObject originalGameObject = GameObject.Find("Player");
         GameObject child = originalGameObject.transform.GetChild(3).gameObject;
+        GameObject sceneTrigger = GameObject.Find("SceneTrigger");
         child.SetActive(false);
 
         transition.SetTrigger("Start");
@@ -33,6 +34,7 @@ public class PISSCallScript : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadSceneAsync(pisscall, LoadSceneMode.Additive);
+        Destroy(sceneTrigger);
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(pisscall));
     }
 }

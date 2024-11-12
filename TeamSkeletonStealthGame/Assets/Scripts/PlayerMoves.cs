@@ -92,10 +92,10 @@ private void HandleMovement()
     {
         render.flipX = moveX < 0;
 
-        // Rotate sprite based on vertical movement
+       /* // Rotate sprite based on vertical movement
         float targetTilt = moveY * maxTiltAngle;
         float smoothTilt = Mathf.LerpAngle(transform.eulerAngles.z, targetTilt, Time.deltaTime * 5f);
-        transform.eulerAngles = new Vector3(0, 0, smoothTilt);
+        transform.eulerAngles = new Vector3(0, 0, smoothTilt);*/
     }
     else
     {

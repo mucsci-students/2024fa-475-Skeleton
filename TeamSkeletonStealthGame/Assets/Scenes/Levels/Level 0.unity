@@ -4514,6 +4514,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &759172569 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4358914202813663266, guid: d6f43442f6f714d0db155abbe9be2a69, type: 3}
+  m_PrefabInstance: {fileID: 2069390794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &925036422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,9 +5839,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1590616375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6b061406de430f4280e489e1a5a3a7b, type: 3}
+  m_Script: {fileID: 11500000, guid: b27f4e284dc64b843b9b37e7c4e2b70a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transitionTime: 1
+  player: []
+  transition: {fileID: 759172569}
+  levelName: Level 1
 --- !u!1 &1777564794
 GameObject:
   m_ObjectHideFlags: 0
@@ -6067,6 +6076,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3333669285533920042, guid: 37335eef25a354912b1e7f4fa5f0e8fa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.58
+      objectReference: {fileID: 0}
     - target: {fileID: 7347673412549601347, guid: 37335eef25a354912b1e7f4fa5f0e8fa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -6074,6 +6087,10 @@ PrefabInstance:
     - target: {fileID: 7738025679619182955, guid: 37335eef25a354912b1e7f4fa5f0e8fa, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058953851546613217, guid: 37335eef25a354912b1e7f4fa5f0e8fa, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8753917616273882211, guid: 37335eef25a354912b1e7f4fa5f0e8fa, type: 3}
       propertyPath: m_Layer
