@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5671184253750362231}
   - component: {fileID: 4601643635856284034}
   m_Layer: 0
-  m_Name: Lv 1 Keycard
+  m_Name: Lv 2 Keycard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -695138445
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1469274240, guid: 5c35f089b9c6540d8ac09cbbdf8b5d89, type: 3}
+  m_Sprite: {fileID: 2144552219, guid: 5c35f089b9c6540d8ac09cbbdf8b5d89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2433efb6acae71045b08ad830c7f16e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accessLevel: 1
+  accessLevel: 2
 --- !u!61 &4601643635856284034
 BoxCollider2D:
   m_ObjectHideFlags: 0

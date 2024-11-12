@@ -5,15 +5,33 @@ using UnityEngine;
 
 public class Keycard : MonoBehaviour
 {
-    public int level; 
+    [SerializeField]
+    private int accessLevel; 
+    public int clearance;
+
+    public void Start(){
+        clearance = accessLevel; //set public variable initialized in editor
+    }
+
     public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag=="Player")
         {
             Player player = FindObjectOfType<Player>();
-            player.GiveClearance(level);
+            player.GiveClearance(accessLevel);
             Destroy(gameObject);
         }
 
     }
+
+    public bool TryOpenDoor(GameObject door)
+        {
+            if (door.GetComponent<Door>() && door.GetComponent<Door>().CanKeycardUnlock(this) && !door.GetComponent<Door>().IsOpened())
+            {
+                door.GetComponent<Door>().UnlockWithKeycard(clearance);
+                Destroy(gameObject);
+                return true;
+            }
+            return false;
+        }
 }
