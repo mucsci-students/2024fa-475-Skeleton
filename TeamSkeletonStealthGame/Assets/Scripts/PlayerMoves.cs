@@ -1,14 +1,21 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+using UnityEngine.UIElements;
 
 public class PlayerMoves : Player
 {
     public float normalSpeed = 3.0f;
     public float stealthSpeed = 1.5f;
+    public AudioSource punchSound;
+    public AudioSource[] footsteps;
+    public AudioSource gunshot;
     private FieldOfView FOV;
     private bool isMoving;
     public  Collider2D punchCollider; 
+    float footstepTimer = 0f;
+    private float footstepInterval = .33f; // third of a second between each footstep sound
+    private bool isMovingFastEnough = false; // Whether player is moving fast enough for footstep sounds
 
 
     private void Start()
@@ -49,23 +56,32 @@ private IEnumerator GameOverStop()
     private void Update()
     {
         if (!isAlive) return;
-        HandleInput();
+        PISSCallReturnScript inPissCall = FindObjectOfType<PISSCallReturnScript>();
+        if(inPissCall==null)
+                {HandleInput();HandleMovement();}
+        
+                // Update footstep timer and play sound if moving fast enough
+        if (isMovingFastEnough)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                playStepSound();
+                footstepTimer = 0f; // Reset the timer
+            }
+        }
     }
 
-    void FixedUpdate()
-    {
-        if (!isAlive) return;
-        HandleMovement();
-    }
 
     private void HandleInput()
     {
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)){
             Punch();
-
+            punchSound.Play();
+}
         if (Input.GetKeyDown(KeyCode.Space))
             Jumpkick();
 
@@ -83,14 +99,18 @@ private void HandleMovement()
     float speed = isStealth ? stealthSpeed : normalSpeed;
     Vector2 movementVector = new Vector2(moveX * speed, moveY * speed);
 
-    rb.velocity = movementVector;
+    rb.velocity = movementVector.normalized * speed;
 
     isMoving = movementVector.magnitude > 0.01f;
     movement.SetBool("isMoving", isMoving);
 
     if (isMoving)
     {
+
         render.flipX = moveX < 0;
+
+        // Check if the player is moving fast enough (above a speed threshold)
+        isMovingFastEnough = movementVector.magnitude > 0.75f;
 
        /* // Rotate sprite based on vertical movement
         float targetTilt = moveY * maxTiltAngle;
@@ -101,9 +121,10 @@ private void HandleMovement()
     {
         // Reset rotation when player stops moving
         transform.eulerAngles = Vector3.zero;
+        isMovingFastEnough = false;
     }
 
-    if (movementVector.magnitude > 0.75f)
+    if (isMovingFastEnough)
     {
         float fovAngle = Mathf.Atan2(moveX, moveY) * Mathf.Rad2Deg;
         FOV.fovRotation = fovAngle;
@@ -111,7 +132,12 @@ private void HandleMovement()
     FOV.DrawFieldofView();
 }
 
-
+    private void playStepSound(){
+        if(!isStealth){
+        int randomFootstep = UnityEngine.Random.Range(0,3);
+        footsteps[randomFootstep].Play();
+        }
+    }
 
     private void Jumpkick()
     {
