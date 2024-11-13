@@ -11,18 +11,24 @@ public class Dialogue : MonoBehaviour
     public float textSpeed;
     private int index;
 
+    [SerializeField]
+    public AudioSource[] voiceLines;
+    public int counter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         textComponent.text = string.Empty;
         StartDialogue();
-        
+        voiceLines[counter].Play();
     }
 
     void Update() {
         if(Input.GetMouseButtonDown(0)) {
             if(textComponent.text == lines[index]) {
                 NextLine();
+                voiceLines[counter+1].Play();
+                counter++;
             } else {
                 StopAllCoroutines();
                 textComponent.text = lines[index];
