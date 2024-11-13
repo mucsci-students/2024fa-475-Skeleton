@@ -23,8 +23,6 @@ public class HintsScript : MonoBehaviour
             SceneManager.UnloadSceneAsync(HintBoxName, UnloadSceneOptions.None); 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
             Scene scene = SceneManager.GetActiveScene();
-            
-            Debug.Log("Clicked Left Click to leave the scene");
         }
     }
 

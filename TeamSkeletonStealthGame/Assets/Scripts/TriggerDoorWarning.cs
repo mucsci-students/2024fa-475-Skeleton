@@ -9,11 +9,14 @@ public class TriggerDoorWarning : MonoBehaviour
     [SerializeField]
     protected string levelName;
 
+    [SerializeField]
+    protected int clearanceLevel;
+
     void OnTriggerEnter2D(Collider2D col)
     {
         Player player = FindObjectOfType<Player>();
 
-        if(player.securityClearance < 1) {
+        if(player.securityClearance < clearanceLevel) {
             if (col.CompareTag("Player"))
                 {
                     StartCoroutine(LoadLevel(levelName));

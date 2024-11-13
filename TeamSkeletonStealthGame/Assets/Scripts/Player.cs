@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     protected float moveX;
     protected float moveY;
     public int securityClearance;
+    public bool hasTruckKey;
 
     private int hp = 100;
     protected float hitTimer = 0.1f;
@@ -36,6 +37,7 @@ public class Player : MonoBehaviour
         movement = GetComponent<Animator>();
         moves = GetComponent<PlayerMoves>();
         respawnPoint = transform.position;
+        hasTruckKey = false;
     }
 
     void Update()
