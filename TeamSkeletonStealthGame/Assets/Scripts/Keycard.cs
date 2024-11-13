@@ -9,6 +9,9 @@ public class Keycard : MonoBehaviour
     private int accessLevel; 
     public int clearance;
 
+    [SerializeField]
+    public bool hasTruckKey;
+
     public void Start(){
         clearance = accessLevel; //set public variable initialized in editor
     }
@@ -19,7 +22,11 @@ public class Keycard : MonoBehaviour
         {
             Player player = FindObjectOfType<Player>();
             player.GiveClearance(accessLevel);
+            if(gameObject.name == "Truck Key") {
+                player.hasTruckKey = hasTruckKey;
+            }
             Destroy(gameObject);
+
         }
 
     }

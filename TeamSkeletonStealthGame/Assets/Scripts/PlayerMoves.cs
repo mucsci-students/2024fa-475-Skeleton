@@ -5,7 +5,9 @@ using UnityEngine.UIElements;
 
 public class PlayerMoves : Player
 {
+    [SerializeField]
     public float normalSpeed = 3.0f;
+    
     public float stealthSpeed = 1.5f;
     public AudioSource punchSound;
     public AudioSource[] footsteps;
