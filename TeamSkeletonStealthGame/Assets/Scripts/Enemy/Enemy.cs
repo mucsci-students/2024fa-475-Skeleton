@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     public float speed = 2f;
     public int hp = 50;
 
-    private Animator enemyMovement; //enemy animation controller
+    protected Animator emv; //enemy animator
     float latestSpotTime = 0; // Keeps track of the last time this enemy saw the player
     public Material fovMaterial;
     public Material fovCombatMaterial;
@@ -24,11 +24,17 @@ public class Enemy : MonoBehaviour
     public Vector3 StartPos {get; private set;}
     public Quaternion StartRot {get; private set;}
     public Collider2D col;
+    public Collider2D attack;
 
     public FieldOfView FOV{get; private set;}
     public MeshRenderer RenderFOV{get;private set;}
     private SpriteRenderer spr; //used in takedamage to flash enemy sprite red when hit
-    private Rigidbody2D rb;
+
+    //declaring before to avoid reallocating memory every update call
+    private Rigidbody2D rb; Vector3 startPosition; Vector3 endPosition;
+    float pathLength;float totalTimeForPath;float currentTimeOnPath;
+
+
 
     // Assign appropriate variables that will be uninitialized in editor
     protected virtual void Awake(){ //protected so only visible in this class, virtual so we can override it depending on enemy type if we decide to implement that
@@ -36,13 +42,15 @@ public class Enemy : MonoBehaviour
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         spr = GetComponent<SpriteRenderer>();
+        emv = GetComponent<Animator>();
+        attack = transform.Find("MeleeCollider").GetComponent<Collider2D>();
+        attack.enabled = false; 
+
         rb.gravityScale = 0;
         rb.freezeRotation = true;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         RenderFOV = FOV.viewMeshFilter.GetComponent<MeshRenderer>();
     }
-
-
 
     protected virtual void Start()
     {
@@ -50,20 +58,24 @@ public class Enemy : MonoBehaviour
         StartRot = transform.rotation;
     }
 
-
     protected virtual void Update(){
+        bool isMoving = rb.velocity.magnitude > 0.01f;
+        emv.SetBool("isMoving", isMoving); 
+
         //check if we detect the player and go to combative state if we do\
         if(FOV.visibleTargets.Count>0)// If a target (the player probably) is seen
         { //COMBAT MODE
             SetSpeed(0.001f);
             // Move from the enemy's current position to wherever the spotted target is
-            Vector3 startPosition = transform.position;
-            Vector3 endPosition = FOV.visibleTargets[0].transform.position;
-            float pathLength = Vector2.Distance(startPosition, endPosition);
-            float totalTimeForPath = pathLength / speed;
-            float currentTimeOnPath = Time.time - latestSpotTime;
+            startPosition = transform.position;
+            endPosition = FOV.visibleTargets[0].transform.position;
+            pathLength = Vector2.Distance(startPosition, endPosition);
+            totalTimeForPath = pathLength / speed;
+            currentTimeOnPath = Time.time - latestSpotTime;
             transform.position = Vector2.Lerp(startPosition, endPosition, currentTimeOnPath / totalTimeForPath);
 
+            if (Vector2.Distance(transform.position, endPosition) <= 1.0f)
+                Attack();
         }
     }
 
@@ -109,46 +121,55 @@ public class Enemy : MonoBehaviour
         // Destroy the alert image after the specified duration
         Destroy(alertInstance, alertDuration);
     }
+
     public void SetSpeed(float newSpeed){
         speed = newSpeed;
     }
 
+    public void Attack()
+    {
+        emv.SetTrigger("Shoot");
+    }
+
+
+    
     public void TakeDamage(int damage)
     {
-        
-        this.hp -= damage;
+        hp -= damage;
+        emv.SetTrigger("Hit");
+
         if (hp <= 0)
-                Die();
-        spr.color = Color.red;
-        // Reset color after a short delay
-        Invoke(nameof(ResetColor), 0.1f); // Adjust delay if needed
-        float knockbackForce = 5f; // Adjust this value to control the intensity of the knockback
-        rb.AddForce(new Vector2(2.0f,2.0f) * knockbackForce, ForceMode2D.Impulse);
-
-        
+        {
+            Die();
+            return; 
+        }
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            Vector2 playerPos = player.transform.position;
+            float force = 5f;
+            Vector2 direction = ((Vector2)transform.position - playerPos).normalized;
+            rb.AddForce(direction * force, ForceMode2D.Impulse);
+        }
     }
 
-    private void ResetColor()
-    {
-        // Reset to original color
-        spr.color = Color.white; // Assuming the original color is white
-    }
     protected void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("PlayerJab"))
-        {
-            
-            TakeDamage(10);
-        }
-        if (col.gameObject.CompareTag("PlayerKick"))
-        {
-            
-            TakeDamage(25);
-        }
+            TakeDamage(15);
+        else if (col.gameObject.CompareTag("PlayerKick"))
+            TakeDamage(30);
+        
     }
 
-    public void Die(){
+    public void Die()
+    {
+        
+        emv.SetTrigger("Die");
         Invoke("SpawnEnemy", 1f);
+
+        Destroy(gameObject, 2.5f);
+
     }
 
 }

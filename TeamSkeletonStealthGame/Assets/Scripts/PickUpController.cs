@@ -20,7 +20,7 @@ public class PickUpController : MonoBehaviour
     private Transform player_pos; //players position
 
     private Vector3 distanceToPlayer; //weapon to player
-    
+    private Sprite temp;
 
     private void Start()
     {
@@ -49,15 +49,24 @@ public class PickUpController : MonoBehaviour
         if (player.weapon !=null)
             return;
 
+
         equipped = true;
         transform.SetParent(player_pos);
+        if(weapon.isBox)
+        {
+            Vector3 weaponOffset = new Vector3(0f, 0f, 0f); // Example offset
+            transform.localPosition = weaponOffset; // Adjust position
+            transform.localScale = new Vector3(1.5f, 1.5f, 1f); // Adjust scale if necessary
+            player.moves.ToggleStealth();
+            floatingitem = null;
 
+        }else{
         // Adjust this offset based on your player model
         Vector3 weaponOffset = new Vector3(0.3f, -1.2f, 0f); // Example offset
         transform.localPosition = weaponOffset; // Adjust position
-        transform.localRotation = Quaternion.Euler(new Vector3(0f,0f,-60));
+        transform.localRotation = Quaternion.Euler(new Vector3(0f,0f,-10));
         transform.localScale = new Vector3(1.2f, 1.5f, 1f); // Adjust scale if necessary
-
+        }
 
         weapon.enabled = true; // Enable weapon functionality
         player.weapon = weapon; // Assign weapon to player
@@ -74,9 +83,11 @@ public class PickUpController : MonoBehaviour
     if (equipped)
     {
         equipped = false;
+        player.weapon = null; // Clear reference to dropped weapon
+
         transform.SetParent(null); // Detach from player
         var sort = weapon.GetComponent<SpriteRenderer>();
-        sort.sortingLayerName = "Interacable Objects";
+        sort.sortingLayerName = "Pickups";
 
         // Set weapon position to player's current position with an offset
         Vector3 dropPosition = player_pos.position;
@@ -86,7 +97,6 @@ public class PickUpController : MonoBehaviour
 
         
         weapon.enabled = false; // Disable weapon functionality
-        player.weapon = null; // Clear reference to dropped weapon
 
         if (floatingitem != null)
         {
