@@ -24,6 +24,12 @@ EditorBuildSettings:
     path: Assets/Scenes/P.I.S.S Calls/P.I.S.S Call 4.unity
     guid: 510f1058b2863ef4ab1651fe588107a5
   - enabled: 1
+    path: Assets/Scenes/P.I.S.S Calls/Hint Prompt 1.unity
+    guid: bff3a1d356f71da4b841c2397aeca565
+  - enabled: 1
+    path: Assets/Scenes/P.I.S.S Calls/Hint Prompt 2.unity
+    guid: 7c99ec5dcfafcdc4daccec992d1ac939
+  - enabled: 1
     path: Assets/Scenes/Closing Dialogue Box/Closing Dialogue.unity
     guid: 969d1dd33254bfa4c9dad683e2dd83ba
   - enabled: 1
