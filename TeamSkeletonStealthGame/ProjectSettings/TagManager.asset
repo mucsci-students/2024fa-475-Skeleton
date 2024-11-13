@@ -10,6 +10,7 @@ TagManager:
   - GameOver
   - PlayerJab
   - PlayerKick
+  - PassiveEnemy
   layers:
   - Default
   - TransparentFX

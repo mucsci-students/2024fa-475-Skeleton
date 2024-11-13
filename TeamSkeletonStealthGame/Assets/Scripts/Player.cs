@@ -12,8 +12,9 @@ public class Player : MonoBehaviour
 {
     protected Rigidbody2D rb;
     public Weapon weapon;
+    
     protected Animator movement;
-    protected PlayerMoves moves;
+    public PlayerMoves moves;
     protected SpriteRenderer render;
     protected float moveX;
     protected float moveY;

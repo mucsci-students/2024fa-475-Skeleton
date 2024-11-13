@@ -24,7 +24,7 @@ public class PlayerMoves : Player
     {
         // Initialize Player components
         rb = GetComponent<Rigidbody2D>();
-        punchCollider = GetComponent<Collider2D>();
+        punchCollider = transform.Find("MeleeCollider").GetComponent<Collider2D>();
         punchCollider.enabled = false; 
         render = GetComponent<SpriteRenderer>();
         movement = GetComponent<Animator>();
@@ -48,6 +48,7 @@ private void HandlePlayerDeath()
 private IEnumerator GameOverStop()
 {
     Time.timeScale = 1f; 
+    movement.SetTrigger("Die");
 
     yield return new WaitForSecondsRealtime(3f);
 
@@ -94,7 +95,6 @@ private IEnumerator GameOverStop()
             ToggleStealth();
         
     }
-private float maxTiltAngle = 10f; // Maximum tilt angle for up/down movement
 
 private void HandleMovement()
 {
@@ -114,10 +114,7 @@ private void HandleMovement()
         // Check if the player is moving fast enough (above a speed threshold)
         isMovingFastEnough = movementVector.magnitude > 0.75f;
 
-       /* // Rotate sprite based on vertical movement
-        float targetTilt = moveY * maxTiltAngle;
-        float smoothTilt = Mathf.LerpAngle(transform.eulerAngles.z, targetTilt, Time.deltaTime * 5f);
-        transform.eulerAngles = new Vector3(0, 0, smoothTilt);*/
+       
     }
     else
     {
@@ -134,12 +131,12 @@ private void HandleMovement()
     FOV.DrawFieldofView();
 }
 
-    private void playStepSound(){
+   /* *private void playStepSound(){
         if(!isStealth){
         int randomFootstep = UnityEngine.Random.Range(0,3);
         footsteps[randomFootstep].Play();
         }
-    }
+    }*/
 
     private void Jumpkick()
     {
@@ -155,34 +152,14 @@ private void HandleMovement()
         punchCollider.enabled = true;
 
         movement.SetTrigger("Punch");
-        Invoke("disablepunch",2.0f);
 
 
     }
-    private void disablepunch()
-    {
-        punchCollider.enabled = false;
-    }
-    
-     private void OnTriggerEnter2D(Collider2D other)
-    {
-    if (other.CompareTag("Attacker"))
-    {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
-        {
-            enemy.TakeDamage(10);
-        }
-        else
-        {
-            Debug.LogWarning("Enemy component not found on Attacker, fool");
-        }
-    }
-}
 
-
-    private void ToggleStealth()
+    public void ToggleStealth()
     {
+        if (weapon.isBox)
+            return;
         isStealth = !isStealth;
         movement.SetBool("isStealthy", isStealth);
     }

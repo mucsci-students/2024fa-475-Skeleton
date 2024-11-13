@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     public Rigidbody2D wpnBody;
     public int damage = 1; // Damage the weapon deals
     public int ammo = 0; // Weight for player movement
+    public bool isBox;
     private SpriteRenderer render;
 
     void Start()
